@@ -10,21 +10,7 @@
 
 <body>
   <h1>Static Web Apps Database Connections</h1>
-  <h1>Azure Static Web Apps custom roles demo</h1>
-  <div>
-      <a href="/.auth/login/aad">Login</a> | <a href="/.auth/logout">Logout</a>
-  </div>
   <a add="" target="_blank" href="https://login.microsoftonline.com/common/adminconsent?client_id=d129ba6e-7d19-4b44-8b6e-d8462e20d45e&amp;state=123asd456&amp;redirect_uri=https://lemon-ground-02d9fad03.4.azurestaticapps.net">Approve Certmon Application in Customer tenant</a>
-  <hr>
-  <div>
-      <ul>
-          <li><a href="/anonymous/">All users can access this page</a></li>
-          <li><a href="/authenticated/">All authenticated users can access this page</a></li>
-          <!-- <li><a href="/admin/">Only users in the admin custom role can access this page</a></li> -->
-      </ul>
-  </div>
-  <hr>
-  <pre></pre>
   <blockquote>
       Open the console in the browser developer tools to see the API responses.
   </blockquote>
@@ -64,14 +50,6 @@ async function list() {
   const data = await response.json();
   console.table(data.value);
 }
-async function getUserInfo() {
-            const response = await fetch('/.auth/me');
-            const user = await response.json();
-            const pre = document.querySelector('pre');
-            pre.textContent = JSON.stringify(user, null, 2);
-        }
-
-        getUserInfo();
   </script>
 </body>
 
