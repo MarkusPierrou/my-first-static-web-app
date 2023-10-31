@@ -5,7 +5,7 @@
     "options": {
       "set-session-context": false 
     },
-    "connection-string": "Server=c-markuspierroutest.wnfe4qr4bmcqkd.postgres.cosmos.azure.com;Database=certmon;Port=5432;User Id=citus;Password=KLJGfsd34;Ssl Mode=Require;Trust Server Certificate=True;"
+    "connection-string": "@env('DATABASE_CONNECTION_STRING')"
   },
   "runtime": {
     "rest": {
