@@ -10,6 +10,20 @@
 
 <body>
   <h1>Static Web Apps Database Connections</h1>
+  <h1>Azure Static Web Apps custom roles demo</h1>
+  <div>
+      <a href="/.auth/login/aad">Login</a> | <a href="/.auth/logout">Logout</a>
+  </div>
+  <hr>
+  <div>
+      <ul>
+          <li><a href="/anonymous/">All users can access this page</a></li>
+          <li><a href="/authenticated/">All authenticated users can access this page</a></li>
+          <!-- <li><a href="/admin/">Only users in the admin custom role can access this page</a></li> -->
+      </ul>
+  </div>
+  <hr>
+  <pre></pre>
   <blockquote>
       Open the console in the browser developer tools to see the API responses.
   </blockquote>
@@ -49,6 +63,14 @@ async function list() {
   const data = await response.json();
   console.table(data.value);
 }
+async function getUserInfo() {
+            const response = await fetch('/.auth/me');
+            const user = await response.json();
+            const pre = document.querySelector('pre');
+            pre.textContent = JSON.stringify(user, null, 2);
+        }
+
+        getUserInfo();
   </script>
 </body>
 
