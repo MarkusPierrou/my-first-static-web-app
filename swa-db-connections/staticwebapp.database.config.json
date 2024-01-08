@@ -30,7 +30,7 @@
   },
   "entities": {
     "Person": {
-      "source": "certmontable",
+      "source": "certificate",
       "permissions": [
         {
           "actions": ["*"],
