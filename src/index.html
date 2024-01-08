@@ -15,14 +15,40 @@
       Open the console in the browser developer tools to see the API responses.
   </blockquote>
   <div>
-      <button id="list" onclick="list()">List</button>
-      <button id="get" onclick="get()">Get</button>
+    <form id="userInputForm">
+      <label for="Tenant">Tenant:</label>
+      <input type="text" id="Tenant" name="Tenant">
+      <button type="button">Submit</button>
+    </form>
+    <div id="resultContainer"></div>
+      <!-- <button id="get" onclick="get()">Get</button>
       <button id="update" onclick="update()">Update</button>
       <button id="create" onclick="create()">Create</button>
-      <button id="delete" onclick="del()">Delete</button>
+      <button id="delete" onclick="del()">Delete</button> -->
+  </div>
+  <div id="data-container">
+    <!-- Data will be displayed here dynamically -->
   </div>
   <script>
-      async function get() {
+    async function submitForm() {
+      // Get the value from the input field and store it in a variable
+      const tenantId = document.getElementById('Tenant').value;
+
+      try {
+        // Use the variable in the request URL
+        const response = await fetch(`https://azurecertmonfunctionadd.azurewebsites.net/api/CreateNewScore?tenantId=${encodeURIComponent(tenantId)}`);
+        const data = await response.json();
+
+        // Display the result in the result container
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.textContent = JSON.stringify(data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+
+  async function get() {
   const id = 2;
   const endpoint = `/data-api/rest/Person/Id`;
   const response = await fetch(`${endpoint}/${id}`);
@@ -44,12 +70,48 @@ const response = await fetch(endpoint, {
 const result = await response.json();
 console.table(result.value);
 }
+
+// Your list function
 async function list() {
-  const endpoint = '/data-api/rest/Person';
-  const response = await fetch(endpoint);
-  const data = await response.json();
-  console.table(data.value);
-}
+      const endpoint = '/data-api/rest/Person';
+      const response = await fetch(endpoint);
+      const data = await response.json();
+
+      // Get the container element
+      const dataContainer = document.getElementById('data-container');
+
+      // Clear previous content (optional)
+      dataContainer.innerHTML = '';
+
+      // Create a table and populate it with data
+      const table = document.createElement('table');
+      table.border = '1';
+
+      // Add table headers
+      const headerRow = table.insertRow(0);
+      for (const key in data.value[0]) {
+        const th = document.createElement('th');
+        th.textContent = key;
+        headerRow.appendChild(th);
+      }
+
+      // Add table rows and cells with data
+      data.value.forEach((item, index) => {
+        const row = table.insertRow(index + 1);
+        for (const key in item) {
+          const cell = row.insertCell();
+          cell.textContent = item[key];
+        }
+      });
+
+      // Append the table to the container
+      dataContainer.appendChild(table);
+    }
+
+    // Call the list function when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', async function () {
+      await list();
+    });
   </script>
 </body>
 
