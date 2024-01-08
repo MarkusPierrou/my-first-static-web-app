@@ -32,11 +32,11 @@
   <script>
     async function submitForm() {
       // Get the value from the input field and store it in a variable
-      const tenantId = document.getElementById('Tenant').value;
+      const tenantIds = document.getElementById('Tenant').value;
 
       try {
         // Use the variable in the request URL
-        const response = await fetch(`https://azurecertmonfunctionadd.azurewebsites.net/api/CreateNewScore?tenantId=${encodeURIComponent(tenantId)}`);
+        const response = await fetch(`https://azurecertmonfunctionadd.azurewebsites.net/api/CreateNewScore?tenantIds=${encodeURIComponent(tenantIds)}`);
         const data = await response.json();
 
         // Display the result in the result container
